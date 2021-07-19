@@ -73,17 +73,12 @@ def read_file(path):
 	else:
 		exit(1)
 
-def main():
-	if __name__ == '__main__':
-		[A, B] = read_file('i01.csv')
+
+if __name__ == '__main__':
+	[A, B] = read_file('i01.csv')
 	X = np.array([[0], [0], [0]], dtype = np.float64)
 	(linhaA, colunaA) = A.shape
 	(linhaB, colunaB) = B.shape
-	x = verificaMatrizA(linhaA, colunaA)
-	y = verificaMatrizB(linhaA, linhaB, colunaB)
-
-	if linhaA != colunaA or colunaB != 1 or linhaA != linhaB:
-		return 0	
 
 	eliminacao_gaussA(linhaA, A, B)
 	subSucessiva(linhaA, A, B, X)
@@ -94,4 +89,3 @@ def main():
 	print('')
 	print(X)
 
-main()
