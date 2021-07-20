@@ -30,7 +30,7 @@ def eliminacao_gaussA(linhaA, A, B):
 
 
 def read_file(path):
-	shape = (tuple(
+	shape = tuple(
 		np.loadtxt(
 			fname=path, 
 			dtype=int, 
@@ -38,15 +38,25 @@ def read_file(path):
 			max_rows=1, 
 			usecols=(0, 1)
 			)
-		)
 	)
-	
-	if verificaMatrizA(shape[0], shape[1]):
+
+	shapeB = tuple(
+		np.loadtxt(
+			fname=path, 
+			dtype=int, 
+			delimiter=',', 
+			max_rows=1, 
+			skiprows=1, 
+			usecols=(0, 1)
+			)
+	)
+
+	if verificaMatrizA(shape[0], shape[1]) and verificaMatrizB(shape[0],shapeB[0], shapeB[1]):
 		A = np.loadtxt(
 			fname=path, 
 			dtype=float, 
 			delimiter=',', 
-			skiprows=1, 
+			skiprows=2, 
 			max_rows=shape[0], 
 			usecols=np.arange(0, shape[1])
 			)
@@ -54,48 +64,25 @@ def read_file(path):
 			fname=path, 
 			dtype=float, 
 			delimiter=',', 
-			skiprows=(shape[0] + 1), 
+			skiprows=(shape[0] + 2), 
 			max_rows=shape[0], 
 			usecols=np.arange(0, shape[1])
-		)
-		
+		)		
+		B = np.reshape(B, (shapeB[0], shapeB[1]))
 		return A, B
 	else:
 		exit(1)
 
-def main():
-	A = np.array([[3, 2, 4], [1, 1, 2], [4, 3, -2]], dtype = np.float64)
-	B = np.array([[1], [2], [3]], dtype = np.float64)
-	X = np.array([[0], [0], [0]], dtype = np.float64)
-	(linhaA, colunaA) = A.shape
-	(linhaB, colunaB) = B.shape
-	print(A.shape, B.shape)
-	x = verificaMatrizA(linhaA, colunaA)
-	y = verificaMatrizB(linhaA, linhaB, colunaB)
-
-	if linhaA != colunaA or colunaB != 1 or linhaA != linhaB:
-		return 0	
-
-	eliminacao_gaussA(linhaA, A, B)
-	subSucessiva(linhaA, A, B, X)
-	print(A)	
-	print('')
-	print(B)
-	print('')
-	print(X)
-
 
 if __name__ == '__main__':
-	main()
-	
-	[A, B] = read_file('i02.csv')
+	[A, B] = read_file('i01.csv')
 	X = np.array([[0], [0], [0]], dtype = np.float64)
-	print(A.shape, B.shape)
 	(linhaA, colunaA) = A.shape
 	(linhaB, colunaB) = B.shape
-	"""
+
 	eliminacao_gaussA(linhaA, A, B)
 	subSucessiva(linhaA, A, B, X)
+	
 	print(A)	
 	print('')
 	print(B)
