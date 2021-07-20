@@ -30,7 +30,7 @@ def eliminacao_gaussA(linhaA, A, B):
 
 
 def read_file(path):
-	shape = tuple(
+	shape = (tuple(
 		np.loadtxt(
 			fname=path, 
 			dtype=int, 
@@ -38,7 +38,9 @@ def read_file(path):
 			max_rows=1, 
 			usecols=(0, 1)
 			)
+		)
 	)
+	
 	if verificaMatrizA(shape[0], shape[1]):
 		A = np.loadtxt(
 			fname=path, 
@@ -56,6 +58,7 @@ def read_file(path):
 			max_rows=shape[0], 
 			usecols=np.arange(0, shape[1])
 		)
+		
 		return A, B
 	else:
 		exit(1)
@@ -66,6 +69,7 @@ def main():
 	X = np.array([[0], [0], [0]], dtype = np.float64)
 	(linhaA, colunaA) = A.shape
 	(linhaB, colunaB) = B.shape
+	print(A.shape, B.shape)
 	x = verificaMatrizA(linhaA, colunaA)
 	y = verificaMatrizB(linhaA, linhaB, colunaB)
 
@@ -80,7 +84,22 @@ def main():
 	print('')
 	print(X)
 
+
 if __name__ == '__main__':
-	[A, B] = read_file('i01.csv')
-	print(A)
+	main()
+	
+	[A, B] = read_file('i02.csv')
+	X = np.array([[0], [0], [0]], dtype = np.float64)
+	print(A.shape, B.shape)
+	(linhaA, colunaA) = A.shape
+	(linhaB, colunaB) = B.shape
+	"""
+	eliminacao_gaussA(linhaA, A, B)
+	subSucessiva(linhaA, A, B, X)
+	print(A)	
+	print('')
 	print(B)
+	print('')
+	print(X)
+	"""
+
