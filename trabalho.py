@@ -28,6 +28,9 @@ def eliminacao_gaussA(linhaA, A, B):
 				A[k] = A[k] - matAUX * A[i-1]
 				B[k] = B[k] - matAUX * B[i-1]
 
+def save_file(B):
+	numpy.savetxt(Output.txt, B, delimiter=',', header='Matriz Resposta')
+
 
 def read_file(path):
 	shape = tuple(
@@ -82,6 +85,8 @@ if __name__ == '__main__':
 
 	eliminacao_gaussA(linhaA, A, B)
 	subSucessiva(linhaA, A, B, X)
+	
+	save_file(B)
 	
 	print(A)	
 	print('')
