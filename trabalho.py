@@ -1,4 +1,5 @@
 import numpy as np
+import sys
 
 def verificaMatrizA(linhaA, colunaA):
 	if linhaA == colunaA:
@@ -19,7 +20,7 @@ def subSucessiva(linhaA, A, B, X):
 				X[i]= X[i] - A[i][j] * X[j]
 		X[i] = X[i]/A[i][i]
 
-def eliminacao_gaussA(linhaA, A, B):
+def eliminacao_gaussa(linhaA, A, B):
 	for i in range(1, linhaA):
 		for j in range(i, linhaA):
 			matAUX = 0
@@ -28,6 +29,8 @@ def eliminacao_gaussA(linhaA, A, B):
 				A[k] = A[k] - matAUX * A[i-1]
 				B[k] = B[k] - matAUX * B[i-1]
 
+def save_file(path, B):
+	np.savetxt(path, B, delimiter=',', header='Matriz Resposta')
 
 def read_file(path):
 	shape = tuple(
@@ -75,18 +78,14 @@ def read_file(path):
 
 
 if __name__ == '__main__':
-	[A, B] = read_file('i01.csv')
-	X = np.array([[0], [0], [0]], dtype = np.float64)
-	(linhaA, colunaA) = A.shape
-	(linhaB, colunaB) = B.shape
+	if len(sys.argv) > 1: 
+		[A, B] = read_file(sys.argv[1])
+		X = np.array([[0], [0], [0]], dtype = np.float64)
+		(linhaA, colunaA) = A.shape
+		(linhaB, colunaB) = B.shape
 
-	eliminacao_gaussA(linhaA, A, B)
-	subSucessiva(linhaA, A, B, X)
-	
-	print(A)	
-	print('')
-	print(B)
-	print('')
-	print(X)
-	"""
+		eliminacao_gaussa(linhaA, A, B)
+		subSucessiva(linhaA, A, B, X)
+		save_file(sys.argv[2], B)
+		
 
