@@ -78,10 +78,14 @@ def read_file(path):
 	else:
 		exit(1)
 
-if __name__ == '__main__':
+def gauss(input, output):
 	if len(sys.argv) > 1: 
-		[A, B, X] = read_file(sys.argv[1])
+		[A, B, X] = read_file(input)
 		(linhaA, colunaA) = A.shape
 		eliminacao_gauss(linhaA, A, B)
 		subSucessiva(linhaA, A, B, X)
-		save_file(sys.argv[2], X)
+		save_file(output, X)
+
+if __name__ == '__main__':
+	if len(sys.argv) > 1: 
+		gauss(sys.argv[1], sys.argv[2])
