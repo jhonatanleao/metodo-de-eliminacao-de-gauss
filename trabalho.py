@@ -29,6 +29,7 @@ def eliminacao_gauss(linhaA, A, B):
 				A[k] = A[k] - matAUX * A[i-1]
 				B[k] = B[k] - matAUX * B[i-1]
 
+
 def save_file(path, B):
 	np.savetxt(path, B, delimiter=',', header='Matriz Resposta')
 
