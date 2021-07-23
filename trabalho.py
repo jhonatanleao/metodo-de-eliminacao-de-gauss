@@ -1,4 +1,5 @@
 import numpy as np
+import sys
 
 def verificaMatrizA(linhaA, colunaA):
 	if linhaA == colunaA:
@@ -19,7 +20,7 @@ def subSucessiva(linhaA, A, B, X):
 				X[i]= X[i] - A[i][j] * X[j]
 		X[i] = X[i]/A[i][i]
 
-def eliminacao_gaussA(linhaA, A, B):
+def eliminacao_gauss(linhaA, A, B):
 	for i in range(1, linhaA):
 		for j in range(i, linhaA):
 			matAUX = 0
@@ -28,9 +29,9 @@ def eliminacao_gaussA(linhaA, A, B):
 				A[k] = A[k] - matAUX * A[i-1]
 				B[k] = B[k] - matAUX * B[i-1]
 
-def save_file(B):
-	numpy.savetxt(Output.txt, B, delimiter=',', header='Matriz Resposta')
 
+def save_file(path, B):
+	np.savetxt(path, B, delimiter=',', header='Matriz Resposta')
 
 def read_file(path):
 	shape = tuple(
@@ -57,40 +58,35 @@ def read_file(path):
 	if verificaMatrizA(shape[0], shape[1]) and verificaMatrizB(shape[0],shapeB[0], shapeB[1]):
 		A = np.loadtxt(
 			fname=path, 
-			dtype=float, 
+			dtype=np.float64, 
 			delimiter=',', 
 			skiprows=2, 
 			max_rows=shape[0], 
-			usecols=np.arange(0, shape[1])
+			usecols=np.arange(0, shape[1]),
 			)
 		B = np.loadtxt(
 			fname=path, 
-			dtype=float, 
+			dtype=np.float64, 
 			delimiter=',', 
 			skiprows=(shape[0] + 2), 
 			max_rows=shape[0], 
 			usecols=np.arange(0, shape[1])
 		)		
 		B = np.reshape(B, (shapeB[0], shapeB[1]))
-		return A, B
+		X = np.zeros((shape[0], 1))
+		C = np.float64
+		return A, B, X
 	else:
 		exit(1)
 
+def gauss(input, output):
+	if len(sys.argv) > 1: 
+		[A, B, X] = read_file(input)
+		(linhaA, colunaA) = A.shape
+		eliminacao_gauss(linhaA, A, B)
+		subSucessiva(linhaA, A, B, X)
+		save_file(output, X)
 
 if __name__ == '__main__':
-	[A, B] = read_file('i01.csv')
-	X = np.array([[0], [0], [0]], dtype = np.float64)
-	(linhaA, colunaA) = A.shape
-	(linhaB, colunaB) = B.shape
-
-	eliminacao_gaussA(linhaA, A, B)
-	subSucessiva(linhaA, A, B, X)
-	
-	save_file(B)
-	
-	print(A)	
-	print('')
-	print(B)
-	print('')
-	print(X)
-
+	if len(sys.argv) > 1: 
+		gauss(sys.argv[1], sys.argv[2])
