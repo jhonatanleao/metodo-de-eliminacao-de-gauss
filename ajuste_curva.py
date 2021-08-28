@@ -54,6 +54,17 @@ def read_file(path):
 
 
 def create_matrix_summations(array_summs, N, P):
+    """
+    Cria matriz de somatórios
+
+    :parameters:
+    array_summs -- Array de somas (array)
+    N -- Tamanho do array (int)
+    P -- Grau do polinomio (int)
+
+    :return:
+    matrix_summations -- Matriz de somatórios para ser usada no metodo de gauss (matrix)
+    """
     matrix_summations = np.zeros(shape=(P+1, P+1), dtype=np.float64)
     matrix_summations[0][0] = N
     count = 1
@@ -70,6 +81,16 @@ def create_matrix_summations(array_summs, N, P):
 
 
 def create_array_results(array_summs, P):
+    """
+    Cria o array de resultados 
+
+    :parameters:
+    array_summs -- Array de somas (array)
+    P -- Grau do polinomio (int)
+    
+    :return:
+    array_results -- Array de resultados para ser usado no metodo de gauss (array)
+    """
     array_results = np.zeros(shape=(P+1), dtype=np.float64)
     array_results[0] = array_summs[0]
 
