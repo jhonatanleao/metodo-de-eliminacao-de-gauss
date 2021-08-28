@@ -1,6 +1,13 @@
 import numpy as np
-import sys 
-import trabalho
+import sys
+
+from numpy.core.fromnumeric import shape 
+import trabalho as gauss
+
+
+
+
+
 
 def read_file(path):
     """
@@ -56,14 +63,23 @@ def create_matrix_summations(array_summs, N, P):
         for k in np.arange(0, P+1):
             if i != 0 or k != 0:
                 matrix_summations[i][k] = array_summs[count]
-                # print(f"i{i},k{k}")
                 count += 1
 
 
     return matrix_summations
 
 
+def create_array_results(array_summs, P):
+    array_results = np.zeros(shape=(P+1), dtype=np.float64)
+    array_results[0] = array_summs[0]
 
+
+    count = 1
+    for i in np.arange(2*P+1 ,2*P + (P + 1)):
+        array_results[count] = array_summs[i]
+        count += 1
+
+    return array_results
 
 
 
@@ -122,17 +138,23 @@ def create_array_summations(matrix_values, P):
 
     return array_sums
 
+def ajuste_de_curva(input, output):
+    read_file(input)
+    N, P, X, Y = read_file(input)
+    matrix_values = create_matrix_values(P, X, Y)
+    array_sums = create_array_summations(matrix_values, P)
+    matrix_summations = create_matrix_summations(array_sums, N, P)
+    array_results = create_array_results(array_sums, P)
+    matrix_size = matrix_summations.shape[0]
+    K = np.zeros(shape=(matrix_size), dtype=np.float64)
+    gauss.eliminacao_gauss(matrix_size, matrix_summations, array_results)
+    gauss.subSucessiva(matrix_size, matrix_summations, array_results, K)
+    gauss.save_file(output, K)
+
+
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
-        read_file(sys.argv[1])
-        N, P, X, Y = read_file(sys.argv[1])
-        matrix_values = create_matrix_values(P, X, Y)
-        array_sums = create_array_summations(matrix_values, P)
-        matrix_summations = create_matrix_summations(array_sums, N, P)
-        # print(matrix_values)
-        print(array_sums)
-        print(matrix_summations)
 
-
-       
+        ajuste_de_curva(sys.argv[1], sys.argv[2])
