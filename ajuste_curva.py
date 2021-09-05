@@ -1,12 +1,7 @@
 import numpy as np
 import sys
-
 from numpy.core.fromnumeric import shape 
-import trabalho as gauss
-
-
-
-
+import gauss as gauss
 
 
 def read_file(path):
@@ -47,10 +42,6 @@ def read_file(path):
         return N, P, X, Y
     else:
         sys.exit("Tamanho de entrada inválido!")
-
-
-
-
 
 
 def create_matrix_summations(array_summs, N, P):
@@ -103,7 +94,6 @@ def create_array_results(array_summs, P):
     return array_results
 
 
-
 def create_matrix_values(P, X, Y):
     """
     Cria a matrix de valores que vão ser usados no cálculo de ajuste de curva
@@ -142,7 +132,8 @@ def create_matrix_values(P, X, Y):
                 )
     
     return matrix_values
-    
+
+
 def create_array_summations(matrix_values, P):
     """
     Cria o vetor com o somatórios dos valores que vão ser usados para cálculo
@@ -174,8 +165,6 @@ def ajuste_de_curva(input, output):
 
 
 
-
 if __name__ == '__main__':
     if len(sys.argv) > 1:
-
         ajuste_de_curva(sys.argv[1], sys.argv[2])
