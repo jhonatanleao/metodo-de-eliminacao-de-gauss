@@ -5,14 +5,14 @@ Projeto em python para resolver sistemas lineares de matrizes quadradas que foi 
 Para executar esse projeto é preciso passar dois arquivos como parâmetro, o primeiro com os input e outro para receber as repostas. Segue exemplo:
 
 <br/>
-<img src="./howtouse.png"/>
+<img src="img/howtouse.png"/>
 <br/>
 
 ## Arquivo input
 O arquivo input tem um padrão para o codigo compilar sem erros. A primeira linha é composta pelas dimensões da matriz A, a segunda é composta pelas dimensões da matriz. A partir disso, vem os valores da matriz A separados por virgula e a ultima linha é composta pelos valores da matriz B separados por vigula. Segue exemplo:
 
 <br/>
-<img src="./exemploInput.png"/>
+<img src="img/exemploInput.png"/>
 <br/>
 <br/>
 
@@ -26,7 +26,9 @@ Para executar esse projeto é preciso passar dois arquivos como parâmetro, o pr
 
 ## Arquivo input
 O arquivo input tem um padrão para o codigo compilar sem erros. A primeira linha é composta por dois valores:
-    N - A quantidade de dados que vão se inseridos (N > 1)
-    P - O grau do polinômio que deseja encontrar (P > 1)
+
+    N - A quantidade de dados que vão se inseridos (N > 1);
+
+    P - O grau do polinômio que deseja encontrar (P > 1);
 
 As linhas seguintes são formadas por pares ordenados de x e f(x).
